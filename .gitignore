@@ -17,7 +17,7 @@
 .idea/sqlDataSources.xml
 .idea/dynamic.xml
 .idea/uiDesigner.xml
-\.idea/*
+\.idea*
 
 # Gradle:
 .idea/gradle.xml
@@ -71,3 +71,24 @@ Session.vim
 tags
 
 # End of https://www.gitignore.io/api/intellij,vim
+
+
+# Created by https://www.gitignore.io/api/gradle
+
+### Gradle ###
+.gradle
+/build/
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Cache of project
+.gradletasknamecache
+
+# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
+# gradle/wrapper/gradle-wrapper.properties
+
+# End of https://www.gitignore.io/api/gradle
