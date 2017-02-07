@@ -1,6 +1,6 @@
 package alex
-
 import groovy.util.logging.Slf4j
+import rx.subjects.PublishSubject
 import spark.Request
 import spark.Response
 import spark.Spark
@@ -19,9 +19,21 @@ class StreamViewerMain {
 
         Spark.post("/ping", {req, res ->
             EchoWebSocket.getSessions().stream().filter({s -> s.open}).forEach({ session ->
-                session.getRemote().sendString("Pong")
+                session.getRemote().sendString("${new Date().format('HH:mm:ss')} - Pong")
             })
             res.status(200)
+        })
+
+        PublishSubject pongSubject = PublishSubject.create()
+
+        new Timer().schedule({
+            pongSubject.onNext("You received a new message from Websocket!")
+        } as TimerTask, 1000, 3000) //magic numbers are initial-delay & repeat-interval
+
+        pongSubject.subscribe({event ->
+            EchoWebSocket.getSessions().stream().filter({s -> s.open}).forEach({ session ->
+                session.getRemote().sendString("${new Date().format('HH:mm:ss')} - ${event}")
+            })
         })
     }
 
