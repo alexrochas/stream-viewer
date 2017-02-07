@@ -16,28 +16,37 @@
 
 <html>
 <head>
-    <title>SockJS Test</title>
-    <script src="http://cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"></script>
+    <title>Test</title>
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
 </head>
 <body>
 
 <script>
-    var socket = new WebSocket("ws://localhost:8080/eventbus/");
+    var socket = new WebSocket("ws://localhost:4567/eventbus/");
 
     socket.onmessage = function (event) {
-      if(event.data instanceof Blob){
-        var reader = new FileReader();
-        var text = reader.readAsText(event.data);
-        console.log(text);
-      }
+      console.log(event);
+      var box = document.getElementById("textBox");
+      box.value = box.value + event.data + "\n";
     }
 
     socket.onclose = function () {
       console.log("Closed");
     }
+
+    $(function() {
+        $("#pingButton").click(function(){
+            $.post("ping", function(data, status){
+        });
+    });
+});
 </script>
 <form onsubmit="return false;">
-   Ping
+    <button id="pingButton">ping</button>
+    <textarea id="textBox"></textarea>
 </form>
 </body>
 </html>
