@@ -32,6 +32,7 @@
       console.log(event);
       var box = document.getElementById("textBox");
       box.value = box.value + event.data + "\n";
+      box.scrollTop = box.scrollHeight;
     }
 
     socket.onclose = function () {
@@ -42,12 +43,30 @@
         $("#pingButton").click(function(){
             $.post("ping", function(data, status){
         });
+
+        $('#textBox').css('background-color','#FFFFFF');
     });
 });
 </script>
-<form onsubmit="return false;">
-    <button id="pingButton">ping</button>
-    <textarea id="textBox"></textarea>
-</form>
+
+
+<div class="container">
+    <div class="col-sm-1">
+    </div>
+    <div class="row">
+        <div class="col-sm-10">
+            <div class="jumbotron">
+                <h2>Stream viewer</h2>
+                <hr/>
+                <form onsubmit="return false;">
+                    <p>Click me please: <button type="button" id="pingButton" class="btn btn-primary">Ping</button></p>
+                    <textarea class="form-control" rows="20" id="textBox" readonly></textarea>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-1">
+    </div>
+</div>
 </body>
 </html>

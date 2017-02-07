@@ -19,7 +19,7 @@ class StreamViewerMain {
 
         Spark.post("/ping", {req, res ->
             EchoWebSocket.getSessions().stream().filter({s -> s.open}).forEach({ session ->
-                session.getRemote().sendString("pong")
+                session.getRemote().sendString("Pong")
             })
             res.status(200)
         })
